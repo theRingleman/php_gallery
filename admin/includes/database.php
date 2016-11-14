@@ -14,6 +14,12 @@
         die("Database connection failed badly" . mysqli_error());
       }
     }
+
+    public function query($sql)
+    {
+      $result = mysqli_query($this->connection, $sql);
+      return $result;
+    }
   }
 
   $database = new Database();
