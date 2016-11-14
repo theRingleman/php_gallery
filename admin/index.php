@@ -30,15 +30,8 @@
         </ol>
 
         <?php
-          $all_users = User::all();
-          while ($row = mysqli_fetch_array($all_users)) {
-            echo $row["username"] . "<br>";
-          }
-
-          echo "<hr>";
-
-          $joe_bob = User::find_by_id(3)->fetch_array();
-          echo $joe_bob['username'];
+          $users = User::all();
+          print_r($users);
         ?>
 
       </div>
