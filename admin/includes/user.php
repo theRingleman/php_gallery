@@ -1,10 +1,18 @@
 <?php
 
   class User{
-    public function find_all_users()
-    {
+
+    public static function all(){
+      return self::sql_queries("SELECT * FROM users");
+    }
+
+    public static function find_by_id($id){
+      return self::sql_queries("SELECT * FROM users WHERE id=$id");
+    }
+
+    private static function sql_queries($query) {
       global $database;
-      return $result = $database->query("SELECT * FROM users");
+      return $database->query($query);
     }
   }
 
