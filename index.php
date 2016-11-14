@@ -2,6 +2,7 @@
   <div class="row">
     <!-- Blog Entries Column -->
     <div class="col-md-8">
+      <?php phpinfo(); ?>
     </div>
     <!-- Blog Sidebar Widgets Column -->
   <div class="col-md-4">
