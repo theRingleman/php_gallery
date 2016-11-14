@@ -30,9 +30,10 @@
         </ol>
 
         <?php
-          if ($database->connection) {
-            echo "true";
-          }
+          $sql = "SELECT * FROM users WHERE id=1";
+          $result = $database->query($sql);
+          $user = mysqli_fetch_array($result);
+          echo $user['password'];
         ?>
 
       </div>

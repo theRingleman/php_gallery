@@ -20,6 +20,16 @@
       $result = mysqli_query($this->connection, $sql);
       return $result;
     }
+
+    private function confirm_query($result){
+      if (!$result) {
+        die("Query failed");
+      }
+    }
+
+    public function escape_string($string){
+      mysqli_real_escape_string($this->connection, $string);
+    }
   }
 
   $database = new Database();
