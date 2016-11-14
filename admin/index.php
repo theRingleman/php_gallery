@@ -30,10 +30,11 @@
         </ol>
 
         <?php
-          $sql = "SELECT * FROM users WHERE id=1";
-          $result = $database->query($sql);
-          $user = mysqli_fetch_array($result);
-          echo $user['password'];
+          $user = new User;
+          $all_users = $user->find_all_users();
+          while ($row = mysqli_fetch_array($all_users)) {
+            echo $row["username"] . "<br>";
+          }
         ?>
 
       </div>
