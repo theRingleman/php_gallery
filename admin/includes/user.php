@@ -23,7 +23,8 @@
     }
 
     public static function find_by_id($id){
-      return self::sql_queries("SELECT * FROM users WHERE id=$id");
+      $user = self::sql_queries("SELECT * FROM users WHERE id=$id");
+      return !empty($user) ? array_shift($user) : false;
     }
 
     private static function sql_queries($query) {

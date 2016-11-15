@@ -31,7 +31,12 @@
 
         <?php
           $users = User::all();
-          print_r($users);
+          foreach ($users as $user) {
+            echo $user->username .  " - " . $user->first_name . "<br>";
+          }
+          $user = User::find_by_id(2);
+          echo "<hr>";
+          echo $user->last_name;
         ?>
 
       </div>
