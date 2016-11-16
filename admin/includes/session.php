@@ -30,6 +30,12 @@
       }
     }
 
+    public function logout(){
+      unset($_SESSION['user_id']);
+      unset($this->user_id);
+      $this->signed_in = false;
+    }
+
   }
 
   $session = new Session();
