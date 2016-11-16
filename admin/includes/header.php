@@ -1,9 +1,6 @@
 <?php ob_start(); ?>
 <?php
   require_once("init.php");
-  if (!$session->is_signed_in()) {
-    redirect("includes/login.php");
-  }
 ?>
 
 <!DOCTYPE html>
