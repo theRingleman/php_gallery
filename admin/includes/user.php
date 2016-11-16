@@ -24,7 +24,7 @@
 
     public static function find_by_id($id){
       $user = self::sql_queries("SELECT * FROM users WHERE id=$id");
-      return !empty($user) ? array_shift($user) : false;
+      return $this->return_one_user($user);
     }
 
     private static function sql_queries($query) {
@@ -35,6 +35,19 @@
         $users[] = self::instantiate($row);
       }
       return $users;
+    }
+
+    private function return_one_user($user){
+      return !empty($user) ? array_shift($user) : false;
+    }
+
+    public static function verify_user($username, $password){
+      global $database;
+      $username = $database->escape_string($username);
+      $password = $database->escape_string($password);
+      $sql = "SELECT * FROM users WHERE username='{$username}' AND password='{$password}'";
+      $user = $database->query($sql);
+      return $this->return_one_user($user);
     }
 
   }

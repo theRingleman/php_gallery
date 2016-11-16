@@ -10,7 +10,7 @@
     $password = trim($_POST['password']);
   }
 
-  $user = User::find_by_form();
+  $user = User::verify_user($username, $password);
 
   if ($user) {
     $session->login($user);
