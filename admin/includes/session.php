@@ -1,11 +1,12 @@
 <?php
 
   class Session{
-    private $signed_in;
+    private $signed_in = false;
     public $user_id;
 
     function __construct(){
       session_start();
+      $this->check_the_login();
     }
 
     private function check_the_login(){
@@ -15,6 +16,17 @@
       }else {
         unset($this->user_id);
         $this->signed_in = false;
+      }
+    }
+
+    public function is_signed_id(){
+      return $this->$signed_in;
+    }
+
+    public function login($user){
+      if ($user) {
+        $this->user_id = $_SESSION['user_id'] = $user->id;
+        $this->signed_in = true;
       }
     }
 
