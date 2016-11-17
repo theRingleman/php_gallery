@@ -39,9 +39,10 @@
           foreach ($users as $user) {
             echo $user->username .  " - " . $user->first_name . "<br>";
           }
-          $user = User::find_by_id(2);
+
           echo "<hr>";
-          echo $user->last_name;
+          $user = User::find_by_id(1);
+          echo $user->username;
         ?>
 
       </div>

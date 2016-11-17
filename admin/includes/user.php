@@ -19,26 +19,28 @@
     }
 
     public static function all(){
-      return self::sql_queries("SELECT * FROM users");
+      return self::return_users_with_sql_query("SELECT * FROM users");
     }
 
     public static function find_by_id($id){
-      $user = self::return_users_with_sql_query("SELECT * FROM users WHERE id=$id");
-      return !empty($user) ? array_shift($user) : false;
+      return self::return_users_with_sql_query("SELECT * FROM `users` WHERE `id` = '$id'");
     }
 
     private static function return_users_with_sql_query($query) {
       global $database;
       $results = $database->query($query);
-      if (count($results > 1)) {
-        $users = [];
-        while ($row = mysqli_fetch_array($results)) {
-          $users[] = self::instantiate($row);
-        }
+      $users = [];
+      while ($row = $results->fetch_array()) {
+        array_push($users, self::instantiate($row));
+      }
+      return self::return_one_or_more_user($users);
+    }
+
+    private static function return_one_or_more_user($users){
+      if(count($users) == 1){
+        return array_shift($users);
+      }else{
         return $users;
-      }else {
-        $user = self::instantiate($result);
-        return $user;
       }
     }
 
@@ -47,8 +49,7 @@
       $username = $database->escape_string($username);
       $password = $database->escape_string($password);
       $sql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
-      $user = self::return_users_with_sql_query($sql);
-      return !empty($user) ? array_shift($user) : false;
+      return self::return_users_with_sql_query($sql);
     }
 
   }
