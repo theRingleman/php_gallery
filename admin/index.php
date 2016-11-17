@@ -43,6 +43,8 @@
           echo "<hr>";
           $user = User::find_by_id(1);
           echo $user->username;
+          $user->last_name = "Shithead";
+          $user->update();
 
         ?>
 

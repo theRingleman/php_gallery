@@ -1,6 +1,9 @@
 <?php ob_start(); ?>
 <?php
   require_once("init.php");
+  if ($session->is_signed_in()) {
+    $user = User::find_user_by_session();
+  }
 ?>
 
 <!DOCTYPE html>
