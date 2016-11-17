@@ -33,15 +33,7 @@
       while ($row = $results->fetch_array()) {
         array_push($users, self::instantiate($row));
       }
-      return self::return_one_or_more_user($users);
-    }
-
-    private static function return_one_or_more_user($users){
-      if(count($users) == 1){
-        return array_shift($users);
-      }else{
-        return $users;
-      }
+      return count($users) == 1 ? array_shift($users) : $users;
     }
 
     public static function verify_user($username, $password){

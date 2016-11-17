@@ -1,6 +1,10 @@
 <?php
   require_once('includes/header.php');
 
+  $username = "";
+  $password = "";
+  $message = "";
+
   if ($session->is_signed_in()) {
     redirect("index.php");
   }
@@ -13,8 +17,6 @@
       $session->login($user);
     }else{
       $message = "Your username or password are incorrect";
-      unset($username);
-      unset($password);
     }
   }
 
