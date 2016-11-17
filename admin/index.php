@@ -22,8 +22,8 @@
     <div class="row">
       <div class="col-lg-12">
         <h1 class="page-header">
-          Blank Page
-          <small>Subheading</small>
+          Hello
+          <small><?php echo $user->get_full_name(); ?></small>
         </h1>
         <ol class="breadcrumb">
           <li>

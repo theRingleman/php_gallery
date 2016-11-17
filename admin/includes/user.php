@@ -49,6 +49,10 @@
       return self::return_users_with_sql_query($sql);
     }
 
+    public function get_full_name(){
+      return $this->first_name . " " . $this->last_name;
+    }
+
     public function create(){
       global $database;
 
