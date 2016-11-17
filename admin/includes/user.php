@@ -23,26 +23,31 @@
     }
 
     public static function find_by_id($id){
-      $user = self::sql_queries("SELECT * FROM users WHERE id=$id");
+      $user = self::return_users_with_sql_query("SELECT * FROM users WHERE id=$id");
       return !empty($user) ? array_shift($user) : false;
     }
 
-    private static function sql_queries($query) {
+    private static function return_users_with_sql_query($query) {
       global $database;
       $results = $database->query($query);
-      $users = [];
-      while ($row = mysqli_fetch_array($results)) {
-        $users[] = self::instantiate($row);
+      if (count($results > 1)) {
+        $users = [];
+        while ($row = mysqli_fetch_array($results)) {
+          $users[] = self::instantiate($row);
+        }
+        return $users;
+      }else {
+        $user = self::instantiate($result);
+        return $user;
       }
-      return $users;
     }
 
     public static function verify_user($username, $password){
       global $database;
       $username = $database->escape_string($username);
       $password = $database->escape_string($password);
-      $sql = "SELECT * FROM users WHERE username='{$username}' AND password='{$password}'";
-      $user = $database->query($sql);
+      $sql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
+      $user = self::return_users_with_sql_query($sql);
       return !empty($user) ? array_shift($user) : false;
     }
 

@@ -29,7 +29,7 @@
     }
 
     public function escape_string($string){
-      return $escaped_string = $this->connection->real_escape_string($string);
+      return $this->connection->real_escape_string($string);
     }
 
     public function the_insert_id()
