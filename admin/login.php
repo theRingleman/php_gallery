@@ -23,6 +23,9 @@
 ?>
 
 <div class="col-md-4 col-md-offset-3">
+
+  <h2 class="text-primary">Login</h2>
+
 	<h4 class="bg-danger"><?php if (isset($message)) {echo $message;}; ?></h4>
 
 	<form id="login-id" action="" method="post">
