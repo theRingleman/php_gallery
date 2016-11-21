@@ -20,6 +20,16 @@
       return $properties;
     }
 
+    protected function clean_properties(){
+      global $database;
+
+      foreach($this->properties() as $key => $value){
+        $clean_properties[$key] = $database->escape_string($value);
+      }
+
+      return $clean_properties;
+    }
+
     public static function instantiate($new_user){
       $user = new self;
       foreach ($new_user as $attribute => $value) {
@@ -71,7 +81,7 @@
 
     public function create(){
       global $database;
-      $properties = $this->properties();
+      $properties = $this->clean_properties();
       $sql = "INSERT INTO " . self::$db_table . " (" . implode(", ", array_keys($properties)) . ")";
       $sql .= "VALUES ('" . implode("', '", array_values($properties)) . "')";
       if ($database->query($sql)) {
@@ -85,7 +95,7 @@
     public function update(){
       global $database;
 
-      foreach ($this->properties() as $key => $value) {
+      foreach ($this->clean_properties() as $key => $value) {
         $property_pairs[] = "{$key}='{$value}'";
       }
 
