@@ -29,6 +29,12 @@
     }
   }
 
+  if (isset($_GET["delete"])) {
+    if ($user->delete()) {
+      redirect("login.php");
+    }
+  }
+
 ?>
 
 <div class="col-md-4 col-md-offset-3">
@@ -62,4 +68,5 @@
 		<input type="submit" name="submit" value="Submit" class="btn btn-primary">
 		</div>
 	</form>
+  <a class="btn btn-danger" href="update.php?delete=<?php echo $user->id; ?>">Delete Account</a>
 </div>

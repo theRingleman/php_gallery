@@ -84,6 +84,15 @@
       return $database->connection->affected_rows == 1 ? true : false;
     }
 
+    public function delete(){
+      global $database;
+      global $session;
+      $session->logout();
+      $sql = "DELETE FROM users WHERE id=" . $database->escape_string($this->id);
+      $database->query($sql);
+      return $database->connection->affected_rows == 1 ? true : false;
+    }
+
   }
 
 ?>
