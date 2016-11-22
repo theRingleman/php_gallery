@@ -30,19 +30,9 @@
             <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
           </li>
           <li class="active">
-            <i class="fa fa-file"></i> Blank Page
+            <i class="fa fa-file"></i> Dashboard
           </li>
         </ol>
-
-        <?php
-          $users = User::all();
-          foreach ($users as $user) {
-            echo $user->username .  " - " . $user->first_name . "<br>";
-          }
-
-          echo "<hr>";
-
-        ?>
 
       </div>
     </div>
