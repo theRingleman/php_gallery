@@ -1,4 +1,5 @@
 <?php
+
   class DB_Object{
     static protected $db_table = "";
     static protected $db_table_fields = [];
@@ -86,6 +87,5 @@
       return static::return_object_with_sql_query("SELECT * FROM " . static::$db_table . " WHERE `id` = '$id'");
     }
   }
-
-  $db_object = new DB_Object;
+  
 ?>
