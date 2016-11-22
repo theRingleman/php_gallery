@@ -1,8 +1,6 @@
 <?php
   include("includes/header.php");
-  if (!$session->is_signed_in()) {
-    redirect('login.php');
-  }
+  redirect_if_not_logged_in();
 ?>
 
   <!-- Navigation -->

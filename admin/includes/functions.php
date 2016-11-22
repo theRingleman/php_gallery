@@ -15,6 +15,13 @@
     header("Location: {$location}");
   }
 
+  function redirect_if_not_logged_in(){
+    global $session;
+    if (!$session->is_signed_in()) {
+      redirect('login.php');
+    }
+  }
+
   spl_autoload_register('classAutoLoader');
 
 ?>

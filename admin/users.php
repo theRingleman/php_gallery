@@ -1,5 +1,8 @@
 <?php include("includes/header.php"); ?>
-<?php $users = User::all(); ?>
+<?php
+  redirect_if_not_logged_in();
+  $users = User::all();
+?>
 
   <!-- Navigation -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
