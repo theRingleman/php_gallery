@@ -1,6 +1,7 @@
 <?php
-  class Db_object{
+  class DB_Object{
     static protected $db_table = "";
+    static protected $db_table_fields = [];
 
     public static function instantiate($new_object){
       $calling_class = get_called_class();
@@ -13,9 +14,20 @@
       return $object;
     }
 
+    public function properties(){
+      global $database;
+      $properties = [];
+      foreach (static::$db_table_fields as $db_field) {
+        if (property_exists($this, $db_field)) {
+          $properties[$db_field] = $database->escape_string($this->$db_field);
+        }
+      }
+      return $properties;
+    }
+
     public function create(){
       global $database;
-      $properties = $this->clean_properties();
+      $properties = $this->properties();
       $sql = "INSERT INTO " . static::$db_table . " (" . implode(", ", array_keys($properties)) . ")";
       $sql .= "VALUES ('" . implode("', '", array_values($properties)) . "')";
       if ($database->query($sql)) {
@@ -26,20 +38,22 @@
       };
     }
 
-    public function update(){
+    public function update() {
       global $database;
+      $properties = $this->properties();
+      $properties_to_sql = [];
 
-      foreach ($this->clean_properties() as $key => $value) {
-        $property_pairs[] = "{$key}='{$value}'";
+      foreach ($properties as $key => $value) {
+        $properties_to_sql[] = "{$key} = '{$value}'";
       }
 
       $sql = "UPDATE " . static::$db_table . " SET ";
-      $sql .= implode(", ", $property_pairs);
-      $sql .= " WHERE id= '" . $database->escape_string($this->id) . "'";
+      $sql .= implode($properties_to_sql, ', ') . " ";
+      $sql .= "WHERE id= '" . $database->escape_string($this->id) . "'";
 
       $database->query($sql);
-      return $database->connection->affected_rows == 1 ? true : false;
-    }
+      return ($database->connection->affected_rows == 1) ? true : false;
+  }
 
     public function delete(){
       global $database;
@@ -48,16 +62,6 @@
       $sql = "DELETE FROM " . static::$db_table . " WHERE id=" . $database->escape_string($this->id);
       $database->query($sql);
       return $database->connection->affected_rows == 1 ? true : false;
-    }
-
-    protected function clean_properties(){
-      global $database;
-
-      foreach($this->properties() as $key => $value){
-        $clean_properties[$key] = $database->escape_string($value);
-      }
-
-      return $clean_properties;
     }
 
     public static function return_object_with_sql_query($query) {
@@ -83,5 +87,5 @@
     }
   }
 
-  $db_object = new Db_object;
+  $db_object = new DB_Object;
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-  class User extends Db_object{
+  class User extends DB_Object{
 
     static protected $db_table = "users";
     protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
@@ -9,16 +9,6 @@
     public $password;
     public $first_name;
     public $last_name;
-
-    protected function properties(){
-      $properties = [];
-      foreach (self::$db_table_fields as $db_field) {
-        if (property_exists($this, $db_field)) {
-          $properties[$db_field] = $this->$db_field;
-        }
-      }
-      return $properties;
-    }
 
     public static function find_user_by_session(){
       $id = $_SESSION['user_id'];

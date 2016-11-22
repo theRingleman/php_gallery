@@ -43,4 +43,5 @@
 		<input type="submit" name="submit" value="Submit" class="btn btn-primary">
 		</div>
 	</form>
+  <a href="signup.php">Or Signup</a>
 </div>

@@ -1,4 +1,5 @@
 <?php include("includes/header.php"); ?>
+<?php $users = User::all(); ?>
 
   <!-- Navigation -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -17,20 +18,25 @@
         <div class="col-lg-12">
           <h1 class="page-header">
             USERS
-            <small>Subheading</small>
           </h1>
           <ol class="breadcrumb">
             <li>
               <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
             </li>
             <li class="active">
-              <i class="fa fa-file"></i> Blank Page
+              <i class="fa fa-file"></i> Users
             </li>
           </ol>
+
+          <ul>
+            <?php foreach($users as $user) : ?>
+              <li><?php echo $user->username . " - " . $user->get_full_name(); ?></li>
+            <?php endforeach ?>
+          </ul>
+
         </div>
       </div>
         <!-- /.row -->
-
     </div>
     <!-- /.container-fluid -->
   </div>
